@@ -4,9 +4,10 @@ import sys
 
 
 def normalize(file):
-    reader = csv.reader(file)
-    writer = csv.writer(sys.stdout)
+    reader = csv.DictReader(file)
+    writer = csv.DictWriter(sys.stdout, fieldnames=reader.fieldnames)
 
+    writer.writeheader()
     for row in reader:
         writer.writerow(normalize_row(row))
 
