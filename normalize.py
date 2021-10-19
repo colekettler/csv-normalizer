@@ -3,6 +3,11 @@ from datetime import datetime, timedelta, timezone
 import sys
 
 
+def configure_encoding(encoding):
+    sys.stdin.reconfigure(encoding=encoding)
+    sys.stdout.reconfigure(encoding=encoding)
+
+
 def normalize(file):
     reader = csv.DictReader(file)
     writer = csv.DictWriter(sys.stdout, fieldnames=reader.fieldnames)
@@ -41,4 +46,5 @@ def normalize_full_name(name):
 
 
 if __name__ == "__main__":
+    configure_encoding("utf-8")
     normalize(sys.stdin)
