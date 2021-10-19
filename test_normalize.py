@@ -5,6 +5,7 @@ def test_normalize_row():
     row = {
         "Timestamp": "4/1/11 11:00:00 AM",
         "ZIP": "94121",
+        "FullName": "Monkey Alberto",
     }
     assert normalize.normalize_row(row)
 
@@ -23,3 +24,14 @@ def test_normalize_zip():
 
     short_zip = "123"
     assert normalize.normalize_zip(short_zip) == "00123"
+
+
+def test_normalize_full_name():
+    ascii_name = "Monkey Alberto"
+    assert normalize.normalize_full_name(ascii_name) == "MONKEY ALBERTO"
+
+    diacritics_name = "Superman übertan"
+    assert normalize.normalize_full_name(diacritics_name) == "SUPERMAN ÜBERTAN"
+
+    japanese_name = "株式会社スタジオジブリ"
+    assert normalize.normalize_full_name(japanese_name) == "株式会社スタジオジブリ"

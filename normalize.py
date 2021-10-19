@@ -15,6 +15,7 @@ def normalize(file):
 def normalize_row(row):
     row["Timestamp"] = normalize_timestamp(row["Timestamp"])
     row["ZIP"] = normalize_zip(row["ZIP"])
+    row["FullName"] = normalize_full_name(row["FullName"])
     return row
 
 
@@ -33,6 +34,10 @@ def normalize_timestamp(timestamp):
 
 def normalize_zip(zip_code):
     return zip_code.zfill(5)
+
+
+def normalize_full_name(name):
+    return name.upper()
 
 
 if __name__ == "__main__":
