@@ -14,6 +14,7 @@ def normalize(file):
 
 def normalize_row(row):
     row["Timestamp"] = normalize_timestamp(row["Timestamp"])
+    row["ZIP"] = normalize_zip(row["ZIP"])
     return row
 
 
@@ -28,6 +29,10 @@ def normalize_timestamp(timestamp):
     dt_est_with_tz = dt_est.replace(tzinfo=est_tz)
 
     return dt_est_with_tz.isoformat()
+
+
+def normalize_zip(zip_code):
+    return zip_code.zfill(5)
 
 
 if __name__ == "__main__":
