@@ -1,5 +1,5 @@
 import csv
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import sys
 
 
@@ -22,7 +22,10 @@ def normalize_timestamp(timestamp):
     est_offset = 3
     dt_est = dt_pst + timedelta(hours=est_offset)
 
-    return dt_est.isoformat()
+    est_tz = timezone(timedelta(hours=-5))
+    dt_est_with_tz = dt_est.replace(tzinfo=est_tz)
+
+    return dt_est_with_tz.isoformat()
 
 
 if __name__ == "__main__":
