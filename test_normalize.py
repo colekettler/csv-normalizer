@@ -2,7 +2,9 @@ import normalize
 
 
 def test_normalize_row():
-    row = "val1,val2"
+    row = {
+        "Timestamp": "4/1/11 11:00:00 AM"
+    }
     assert normalize.normalize_row(row)
 
 

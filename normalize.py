@@ -13,6 +13,7 @@ def normalize(file):
 
 
 def normalize_row(row):
+    row["Timestamp"] = normalize_timestamp(row["Timestamp"])
     return row
 
 
