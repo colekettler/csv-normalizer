@@ -7,7 +7,11 @@ def normalize(file):
     writer = csv.writer(sys.stdout)
 
     for row in reader:
-        writer.writerow(row)
+        writer.writerow(normalize_row(row))
+
+
+def normalize_row(row):
+    return row
 
 
 if __name__ == "__main__":
