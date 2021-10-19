@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 import sys
 
 
@@ -12,6 +13,11 @@ def normalize(file):
 
 def normalize_row(row):
     return row
+
+
+def normalize_timestamp(timestamp):
+    format = "%m/%d/%y %I:%M:%S %p"
+    return datetime.strptime(timestamp, format).isoformat()
 
 
 if __name__ == "__main__":
