@@ -54,12 +54,15 @@ def normalize_full_name(name):
 
 
 def normalize_duration(duration):
+    delta = get_duration_delta(duration)
+    return math.floor(delta.total_seconds())
+
+
+def get_duration_delta(duration):
     units = ["hours", "minutes", "seconds", "milliseconds"]
     parts = [int(part) for part in duration.replace(".", ":").split(":")]
     kwargs = dict(zip(units, parts))
-    delta = timedelta(**kwargs)
-
-    return math.floor(delta.total_seconds())
+    return timedelta(**kwargs)
 
 
 if __name__ == "__main__":
