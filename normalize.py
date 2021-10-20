@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime, timedelta, timezone
+import math
 import sys
 
 
@@ -21,6 +22,8 @@ def normalize_row(row):
     row["Timestamp"] = normalize_timestamp(row["Timestamp"])
     row["ZIP"] = normalize_zip(row["ZIP"])
     row["FullName"] = normalize_full_name(row["FullName"])
+    row["FooDuration"] = normalize_duration(row["FooDuration"])
+    row["BarDuration"] = normalize_duration(row["BarDuration"])
     return row
 
 
@@ -43,6 +46,15 @@ def normalize_zip(zip_code):
 
 def normalize_full_name(name):
     return name.upper()
+
+
+def normalize_duration(duration):
+    units = ["hours", "minutes", "seconds", "milliseconds"]
+    parts = [int(part) for part in duration.replace(".", ":").split(":")]
+    kwargs = dict(zip(units, parts))
+    delta = timedelta(**kwargs)
+
+    return math.floor(delta.total_seconds())
 
 
 if __name__ == "__main__":

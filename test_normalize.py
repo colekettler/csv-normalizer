@@ -6,6 +6,8 @@ def test_normalize_row():
         "Timestamp": "4/1/11 11:00:00 AM",
         "ZIP": "94121",
         "FullName": "Monkey Alberto",
+        "FooDuration": "1:23:32.123",
+        "BarDuration": "1:32:33.123",
     }
     assert normalize.normalize_row(row)
 
@@ -35,3 +37,11 @@ def test_normalize_full_name():
 
     japanese_name = "株式会社スタジオジブリ"
     assert normalize.normalize_full_name(japanese_name) == "株式会社スタジオジブリ"
+
+
+def test_normalize_duration():
+    duration = "111:23:32.123"
+    assert normalize.normalize_duration(duration) == 401012
+
+    zero_duration = "0:00:00.000"
+    assert normalize.normalize_duration(zero_duration) == 0
