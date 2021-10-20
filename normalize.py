@@ -23,11 +23,11 @@ def normalize_row(row):
     row["ZIP"] = normalize_zip(row["ZIP"])
     row["FullName"] = normalize_full_name(row["FullName"])
 
-    foo_duration = normalize_duration(row["FooDuration"])
-    bar_duration = normalize_duration(row["BarDuration"])
-    row["FooDuration"] = foo_duration
-    row["BarDuration"] = bar_duration
-    row["TotalDuration"] = foo_duration + bar_duration
+    foo_duration = row["FooDuration"]
+    bar_duration = row["BarDuration"]
+    row["FooDuration"] = normalize_duration(foo_duration)
+    row["BarDuration"] = normalize_duration(bar_duration)
+    row["TotalDuration"] = get_total_duration(foo_duration, bar_duration)
 
     return row
 
@@ -56,6 +56,12 @@ def normalize_full_name(name):
 def normalize_duration(duration):
     delta = get_duration_delta(duration)
     return math.floor(delta.total_seconds())
+
+
+def get_total_duration(*durations):
+    deltas = [get_duration_delta(duration) for duration in durations]
+    sum_deltas = sum(deltas, timedelta())
+    return math.floor(sum_deltas.total_seconds())
 
 
 def get_duration_delta(duration):

@@ -8,6 +8,7 @@ def test_normalize_row():
         "FullName": "Monkey Alberto",
         "FooDuration": "1:23:32.123",
         "BarDuration": "1:32:33.123",
+        "TotalDuration": "zzsasdfa",
     }
     assert normalize.normalize_row(row)
 
@@ -45,3 +46,12 @@ def test_normalize_duration():
 
     zero_duration = "0:00:00.000"
     assert normalize.normalize_duration(zero_duration) == 0
+
+
+def test_get_total_duration():
+    duration1 = "1:23:32.123"
+    assert normalize.get_total_duration(duration1) == 5012
+    assert normalize.get_total_duration(duration1, duration1) == 10024
+
+    duration2 = "1:23:32.900"
+    assert normalize.get_total_duration(duration1, duration2) == 10025
