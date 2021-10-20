@@ -22,8 +22,13 @@ def normalize_row(row):
     row["Timestamp"] = normalize_timestamp(row["Timestamp"])
     row["ZIP"] = normalize_zip(row["ZIP"])
     row["FullName"] = normalize_full_name(row["FullName"])
-    row["FooDuration"] = normalize_duration(row["FooDuration"])
-    row["BarDuration"] = normalize_duration(row["BarDuration"])
+
+    foo_duration = normalize_duration(row["FooDuration"])
+    bar_duration = normalize_duration(row["BarDuration"])
+    row["FooDuration"] = foo_duration
+    row["BarDuration"] = bar_duration
+    row["TotalDuration"] = foo_duration + bar_duration
+
     return row
 
 
